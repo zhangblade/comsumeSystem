@@ -1,0 +1,186 @@
+
+.ivu-menu-item > i{
+  margin-right: 12px !important;
+}
+.ivu-menu-submenu > .ivu-menu > .ivu-menu-item > i {
+  margin-right: 8px !important;
+}
+.collased-menu-dropdown{
+  width: 100%;
+  margin: 0;
+  line-height: normal;
+  padding: 7px 0 6px 16px;
+  clear: both;
+  font-size: 12px !important;
+  white-space: nowrap;
+  list-style: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  &:hover{
+    background: rgba(100, 100, 100, 0.1);
+  }
+  & * {
+    color: #515a6e;
+  }
+  .ivu-menu-item > i{
+    margin-right: 12px !important;
+  }
+  .ivu-menu-submenu > .ivu-menu > .ivu-menu-item > i {
+    margin-right: 8px !important;
+  }
+}
+.ivu-select-dropdown.ivu-dropdown-transfer{
+  max-height: 400px;
+}
+
+
+.layout_container{
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  // ---------------   header start  ---------------
+
+  .layout_header{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    padding: 0;
+    background-color: #fff;
+    height: 50px;
+    line-height: 50px;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.08);
+    z-index: 1008;
+  }
+
+  // ---------------   header end  ---------------
+
+  
+  // ---------------   main start  ---------------
+  .container_wrap{
+    height: inherit;
+    box-sizing: border-box;
+    padding-top: 50px;
+  }
+
+  .layout_main{
+    height: inherit;
+    position: relative; // drawer 设置为 innder 定位父级元素
+    .layout_main_content{
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      .ivu-layout-sider.main_left_submenu{
+        position: relative;
+        background-color: #f5f5f5;
+      }
+      .routerview_container{
+          background-color: #fff;
+          padding: 16px;
+          overflow-x: hidden;
+          position: relative;
+      }
+    }
+
+	// ---------------   左侧弹窗产品 start  ---------------
+	.ivu-drawer-wrap.layout_menu_drawer{
+    z-index: 1007;
+		// drawer body
+		.ivu-drawer-body{
+		  padding: 0;
+			  
+			// ---------------   二级drawer 产品与服务 start  -------------
+			.extend_module{
+				.btn_toggle_list{
+					padding: 14px 16px;
+					color: #333;
+					font-size: 12px;
+					padding-left: 20px+16px;
+					&:hover{
+						background-color: #ebebeb;
+					}
+					i{
+						display: block;
+						float: right;
+						top: 4px;
+						position: relative;
+						margin-right: 8px;
+						width: 12px;
+						height: 12px;
+						transform: rotate(-90deg);
+					}
+					&.collapsed i{
+						transform: rotate(90deg);
+					}
+				}
+				.list_box{
+					position: fixed;
+					left: 280px;
+					top: 50px;
+					width: 0;
+					bottom: 0;
+					z-index: 1009;
+					transition: width .5s;
+					&.show{
+						width: 800px;
+						&.mobile{
+							width: ~"calc(100% - 280px)";
+						}
+					}
+					.list_drawer{
+						.ivu-drawer{
+							.ivu-drawer-body{
+                background-color: #f7f7f7;
+                padding: 16px;
+							}
+						}
+					}
+				}
+      }
+			// ---------------   二级drawer 产品与服务 end  ---------------
+      
+			// ---------------   产品列表 end  ---------------
+      .product_list{
+        overflow: hidden;
+        .ivu-menu:after, .ivu-menu-item:after{
+          display: none;
+        }
+        .ivu-menu{
+          .ivu-menu-item{
+            padding: 0;
+            padding-right: 8px;
+            line-height: 40px;
+            font-size: 12px;
+            color: #333;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &.ivu-menu-item-active:not(.ivu-menu-submenu), &:hover{
+              background-color: #ebebeb;
+              color: #ff6a00;
+            }
+            .ivu-icon{
+              width: 16px;
+              height: 16px;
+              vertical-align: middle;
+              margin: 0 17px;
+              &:after{
+                width: 100%;
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+		}
+    // ---------------   产品列表 end  ---------------
+	}
+  	// ---------------   左侧弹窗产品 end  ---------------
+
+
+  }
+  
+  // ---------------   main end  ---------------
+
+}
+.overflow_hidden{
+  overflow: hidden;
+}

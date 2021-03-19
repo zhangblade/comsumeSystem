@@ -1,0 +1,837 @@
+.no-select{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.clearfix(){
+  &:after{
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", "Hiragino Sans GB", "Microsoft YaHei";
+}
+
+// ------------     modal start            ---------------------
+
+thead tr th{
+  color: #72879c;
+  font-weight: normal !important;
+}
+
+tbody tr td{
+  color: #7f95a9;
+}
+.dib{
+  display: inline-block;
+}
+.nopadding{
+  padding: 0;
+}
+.auto_width{
+  width: auto;
+}
+
+// ------------     modal end             ---------------------
+
+// ------------     modal start            ---------------------
+
+// 弹窗 居中
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ivu-modal{
+      top: 0;
+  }
+}
+
+// ------------     modal end             ---------------------
+
+// ------------    框架 Button start            ---------------------
+.ivu-btn{
+    border-radius: 0 !important;
+}
+// ------------    框架 Button end             ---------------------
+
+
+// ------------    框架 Input Search start            ---------------------
+.ivu-input{
+    border-radius: 0 !important;
+}
+// ------------    框架 Input Search end             ---------------------
+
+// ------------    框架 Form start            ---------------------
+.ivu-form-item{
+    .ivu-form-item-label{
+      padding: 10px 30px 10px 0 !important;
+    }
+    .ivu-form-item-content{
+      
+    }
+    &.item_txt{
+      .ivu-form-item-label{
+        padding: 8px 30px 8px 0 !important;
+      }
+      .ivu-form-item-content{
+        line-height: 28px;
+      }
+    }
+}
+.submit_item{
+  margin-left: 0 !important;
+  text-align: center;
+  .ivu-btn{
+    // display: inline-block !important;
+  }
+}
+// ------------    框架 Form end             ---------------------
+
+
+
+
+// ------------     路由渲染页面通用布局 start            ---------------------
+
+.layout_main_content{
+
+  // ---------    左侧菜单 start  --------------
+  .main_left_submenu{
+    .submenu_wrap{
+      width: 200px;
+      height: 100%;
+      overflow: auto;
+      position: absolute;
+      right: 0;
+      .product_tt{
+        height: 50px;
+        line-height: 50px;
+        padding: 0 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+        color: #333333;
+        border-bottom: 1px solid #dedede;
+        font-weight: 500;
+      }
+      .left_sub_module{
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+        flex: 0 0 200px;
+        .ivu-menu.main_nav{
+          background-color: transparent;
+          &.ivu-menu:after,.ivu-menu-item:after,.ivu-menu-item-active:not(.ivu-menu-submenu):after,&.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after{
+            display: none;
+          }
+          &.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu){
+            background: #dedede;
+            color: #333;
+            font-weight: 500;
+          }
+          .ivu-menu-item{
+            font-size: 12px;
+            padding: 7px 16px;
+            line-height: 1.5;
+            i{ margin: 0; }
+            &:hover{
+              background-color: #ebebeb;
+              color: #ff7d10;
+            }
+          }
+          .ivu-menu-submenu{
+            // &:before{
+            //   content: '';
+            //   display: block;
+            //   width: 178px;
+            //   height: 1px;
+            //   background: #DEDEDE;
+            //   display: table;
+            //   margin: 8px auto;
+            // }
+            .ivu-menu-submenu-title{
+              padding: 7px 16px;
+              line-height: 1.5;
+              font-size: 12px;
+              span{
+                font-size: 12px;
+              }
+              i{ margin: 0; }
+              &:hover{
+                color: #ff7d10;
+              }
+            }
+            .ivu-menu-item{
+              padding-left: 16px !important;
+            }
+          }
+        }
+      }
+    }
+    // 切换显示隐藏侧边栏按钮
+    .btn_toggle_sider{
+        cursor: pointer;
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        margin-top: -20px;
+        transition: all 0.2s ease;
+        height: 66px;
+        border-bottom: 8px solid transparent;
+        border-right: none;
+        border-left: 12px solid #EBEBEB;
+        border-top: 8px solid transparent;
+        &::before{
+          content: '';
+          display: block;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin: -6px 0 0 -16px;
+        }
+        &::before{
+          width: 12px;
+          height: 12px;
+          border: 1px solid #aaa;
+          border-left-color: transparent;
+          border-top-color: transparent;
+          transform: rotate(-45deg)
+        }
+        &:hover{
+          border-left-color: #dedede;
+          &:before{
+            border-right-color: #888;
+            border-bottom-color: #888;
+          }
+        }
+        &.btn_collapsed{
+          &:before{
+            transform: rotate(135deg) translate3d(-5px,-5px,0);
+          }
+        }
+    }
+  }
+  // ---------    左侧菜单  end   --------------
+    
+  // ------------   新增，编辑等操作布局 start  ------------------
+
+  .router_view{
+    box-sizing: border-box;
+    background-color: #fff;
+    overflow-x: hidden;
+    min-height: 100%;
+    &.oh{
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+    &.no-padding{
+      padding: 0;
+    }
+    &.color_gray{
+      background-color: #f5f5f5;
+    }
+    .right_wrap.ivu-layout{
+      background-color: #fff;
+    }
+    // 头部通用
+    .content_header{
+      margin-bottom: 16px;
+      padding: 10px 0;
+      line-height: 1;
+      border-bottom: 1px solid #ddd;
+      .clearfix();
+      h5{
+        display: inline-block;
+        font-weight: normal;
+        color: #333333;
+        font-size: 14px;
+        padding: 8px 0 8px 10px;
+        position: relative;
+        &:before{
+          content: '';
+          display: block;
+          width: 2px;
+          background-color: #88B7E0;
+          height: 14px;
+          position: absolute;
+          left: 0;
+          top: 8px;
+        }
+        span{
+          font-size: 12px;
+          margin-left: 5px;
+          color: #999;
+        }
+      }
+      .head_right{
+        float: right;
+        .btn{
+          margin-left: 10px;
+        }
+      }
+    }
+    .adapt_wrap{
+      max-width: 900px;
+      .content_sub_title{
+        position: relative;
+        height: 40px;
+        line-height: 38px;
+        background: #F5f6FA;
+        border: 1px solid #e1e6eb;
+        border-left: 4px solid #6d7781;
+        margin-bottom: -1px;
+        h6{
+          font-size: 14px;
+          color: #333333;
+          display: inline-block;
+          margin-left: 16px;
+          font-weight: normal;
+        }
+      }
+      .content_m{
+        border: 1px solid #ddd;
+        padding: 20px;
+        .content_m_wrap{
+
+        }
+      }
+    }
+
+    // ------------   新增，编辑等操作布局 end  ------------------
+    
+    // ------------   操作 start  ------------------
+    .opt_box{
+      .btn{
+        margin-right: 8px;
+      }
+      
+    }
+    // ------------   操作 end   ------------------
+    
+    
+
+  }
+}
+
+// table 以及分页器 通用
+.table_box{
+  margin: 20px 0;
+  .ivu-table{
+    .ivu-table-header, .ivu-table-body{
+      .ivu-table-cell{
+        padding: 0 8px;
+      }
+    }
+  }
+}
+// 自定义table td padding
+.cus_td_pad .ivu-table-cell{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pager_box{
+  padding: 10px 0;
+  text-align: right;
+  &.nopadding{
+    padding: 0;
+  }
+}
+// table 操作 按钮样式
+.btn_action{
+  cursor: pointer;
+  color: #0099cc;
+  margin-right: 5px;
+  &:last-child{
+      margin-right: 0;
+  }
+  &.btn_action_disabled{
+    cursor: not-allowed;
+    color: #ccc;
+  }
+}
+
+// table 操作更多
+.more_opt {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 24px;
+  padding: 0 4px 0 8px;
+  &:hover{
+      background-color: #e8eaec;
+  }
+}
+// ------------     路由渲染页面通用布局 end             ---------------------  
+
+.inline_block_space{
+  display: inline-block;
+  margin-right: 5px;
+  padding: 6px 0;
+}
+
+// ------------     element-ui 树状表格 start             ---------------------  
+
+.el-table.cus_table{
+  border: 1px solid #e9eaec;
+  .cus_table_header{
+      th{
+          background-color: #f8f8f9;
+      }
+  }
+}
+
+// ------------     element-ui 树状表格 end             ---------------------  
+
+// // -----------  flex  start ------------------
+.flex_layout{
+  display: flex;
+}
+.jc_space_between{
+  justify-content: space-between;
+}
+.jc_center{
+  justify-content: center;
+}
+.ai_center{
+  align-items: center;
+}
+.ai_start{
+  justify-content: flex-start;
+}
+.ai_end{
+  justify-content: flex-end;
+}
+.fw_wrap{
+  flex-wrap: wrap;
+}
+.fw_nowrap{
+    flex-wrap: nowrap;
+}
+.equal, .equal_1{
+    flex: 1;
+}
+.equal_2{
+    flex: 2;
+}
+// // -----------  flex  end ------------------
+
+// // -----------  两列布局 左侧固定  start ------------------
+
+.two_col_layout{
+  display: flex;
+  flex-direction: row;
+  .treeList{
+      margin-top: 6px;
+      width: 180px;
+      min-width: 180px;
+      margin-right: 16px;
+      box-sizing: border-box;
+      .treeList_wrap{
+          padding: 8px;
+          box-sizing: border-box;
+          box-shadow: 0 2px 12px rgba(0,0,0,.1);
+          overflow: auto;
+          max-height: 450px;
+          .title{
+              font-size: 14px;
+              color: #333;
+              margin-bottom: 10px;
+          }
+      }
+  }
+  &.nomt .treeList{
+    margin-top: 0;
+  }
+  &.cus_mt .treeList{
+    margin-top: 16px;
+  }
+  .content_scroll_x{
+      flex: auto;
+      overflow-x: hidden;
+  }
+}
+
+// // -----------  两列布局 左侧固定  end ------------------
+
+// -----------  模拟 展示型的 select start ------------------
+
+.mock_select{
+  position: relative;
+  .selected{
+    width: auto;
+    min-width: 100px;
+    line-height: 32px;
+    height: 32px;
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #dcdee2;
+    transition: all .2s ease-in-out;
+    .placeholder{
+      display: block;
+      height: 30px;
+      line-height: 30px;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-left: 8px;
+      padding-right: 24px;
+    }
+    .select_icon_dropdown, .select_icon_clear{
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      line-height: 1;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #808695;
+      transition: all .2s ease-in-out;
+    }
+    .select_icon_dropdown{
+      display: block;
+    }
+    .select_icon_clear{
+      display: none;
+    }
+    &:hover{
+      .select_icon_dropdown{
+        display: none;
+      }
+      .select_icon_clear{
+        display: block;
+      }
+    }
+  }
+  .select_dropdown{
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 32px;
+    max-height: 200px;
+    overflow: auto;
+    margin: 5px 0;
+    padding: 5px 0;
+    background-color: #fff;
+    box-sizing: border-box;
+    z-index: 900;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    .no_options{
+      padding: 0 8px;
+    }
+    .option{
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-left: 8px;
+      padding-right: 24px;
+      line-height: 32px;
+      &:hover{
+        background-color: #f3f3f3;
+      }
+      .close_button{
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        line-height: 1;
+        transform: translateY(-50%);
+        font-size: 14px;
+        color: #808695;
+        transition: all .2s ease-in-out;
+        cursor: pointer;
+        &:hover{
+          color: #0099cc;
+        }
+      }
+    }
+  }
+  &.show{
+    .selected{
+      .select_icon_dropdown{
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+    .select_dropdown{
+      display: block;
+    }
+  }
+}
+// -----------  模拟 展示型的 select end ------------------
+
+// -----------  element-table弹窗 底部固定 start ------------------
+
+.cus_element_table.el-table{
+  border: 1px solid #e8eaec;
+  border-bottom: none;
+  &.noborder{
+    border: none;
+  }
+  .cus_header_row{
+      background-color: #f8f8f9;
+      th{
+          background-color: #f8f8f9;
+      }
+  }
+  .cus_element_table_cell .cell{
+    padding: 0 5px;
+  }
+  // 自定义
+  .cus_element_table_cell.cus_row_board{
+    .cell{
+      color: #1589f5;
+    }
+    // &.board_cell .cell{
+    //   color: #0099cc;
+    // }
+  }
+  .cus_element_table_cell.cus_row_door{
+    .cell{
+      color: #666666;
+    }
+    &.text_disabled .cell{
+      color: #999999;
+    }
+    &.door_cell .cell{
+      padding-left: 20px;
+    }
+  }
+}
+// -----------  element-table弹窗 底部固定 end ------------------
+
+// -----------  vue-treeselect  start ------------------
+
+.adapt_cell{
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  .cus_btn_search{
+      margin-right: 10px;
+  }
+  &.tree_select{
+      width: 300px;
+  }
+  &.small{
+    width: 180px;
+  }
+}
+.tree_select_search_box{
+  padding: 8px 8px;
+}
+// -----------  vue-treeselect  end ------------------
+
+// -----------  drawer_fix_footer  start ------------------
+
+
+.ivu-drawer-wrap.drawer_fix_footer.ivu-drawer-wrap-inner{
+  .ivu-drawer-body{
+      padding: 0;
+      overflow: hidden;
+      .drawer_body_container{
+        height: 100%;
+      }
+      .content_layout{
+          padding: 16px;
+          box-sizing: border-box;
+          height: ~"calc(100% - 64px)";
+          overflow: auto;
+      }
+  }
+  .drawer_footer{
+      box-sizing: border-box;
+      border-top: 1px solid #ccc;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 16px;
+      text-align: right;
+  }
+}
+// -----------  drawer_fix_footer  end ------------------
+
+// ---------------   全屏图片  start  ---------------
+
+.bigPic{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  &.fixed{
+    position: fixed;
+  }
+  .mask{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.5);
+  }
+  img{
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%,-50%,0);
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      &.hei{
+          height: 100%;
+      }
+      &.wid{
+          width: 100%;
+      }
+  }
+  .bigPic_loading{
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%,-50%,0);
+  }
+  .btn_navigation{
+    cursor: pointer;
+    width: 20px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0,-50%,0);
+    &.btn_navigation_left{
+      left: 50px;
+      background-image: url(../../assets/images/icon_nav_left.png);
+      background-size: 100% auto;
+    }
+    &.btn_navigation_right{
+      right: 50px;
+      background-image: url(../../assets/images/icon_nav_right.png);
+      background-size: 100% auto;
+    }
+    &.disabled{
+      cursor: not-allowed;
+    }
+  }
+}
+// ---------------   全屏图片  end  ---------------
+
+// ---------------   select 分页  start  ---------------
+.selectpage_content{
+  .selectpage_search{
+    .selectpage_search_ipt{
+      margin-bottom: 10px;
+    }
+  }
+  .selectpage_list{
+    .selectpage_list_item{
+      padding: 4px 0;
+    }
+  }
+  .selectpage_sel{
+    width: 100px;
+    height: 32px;
+  }
+}
+.selectpage_search{
+  padding: 0 16px;
+  .selectpage_search_ipt{
+    margin-bottom: 5px;
+  }
+}
+.selectpage_pager{
+  text-align: right;
+  padding: 0 16px;
+}
+.el-select.cus_el_selectpage{
+  .el-select__tags{
+    .el-tag{
+        display: none;
+        margin: 0 0 0 6px;
+        &.el-tag--small{
+          height: 20px;
+          line-height: 18px;
+          font-size: 12px;
+          background-color: #e3f2fd;
+          color: #039be5;
+          .el-tag__close{
+            background-color: transparent;
+            color: #039be5;
+            &:hover{
+              color: #e53935;
+            }
+          }
+        }
+    }
+    .el-tag:first-child, .el-tag:nth-of-type(2), .el-tag:nth-of-type(3){
+        display: inline-block;
+    }
+    .el-tag:nth-of-type(3){
+        font-size: 0;
+        .el-tag__close{ display: none; }
+        &:after{
+            content: "...";
+            font-size: 12px;
+        }
+    }
+  }
+}
+.el-select-dropdown__item.cus_el_selectpage_option{
+  height: 19px;
+  line-height: 19px;
+  font-size: 12px;
+  &.selected{
+    font-weight: normal;
+  }
+}
+.selectpage_empty{
+  padding: 6px 0;
+  .selectpage_empty_text{
+    padding: 4px 16px;
+  }
+}
+// ---------------   select 分页  end  ---------------
+
+// ---------------   tree-select  start  ---------------
+.vue-treeselect{
+  .vue-treeselect__control{
+    height: 32px;
+    .vue-treeselect__value-container{
+      .vue-treeselect__multi-value{
+        margin-bottom: 3px;
+        .vue-treeselect__multi-value-item-container{
+          padding-top: 3px;
+        }
+      }
+      .vue-treeselect__placeholder{
+        line-height: 30px;
+      }
+    }
+  }
+  &.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value{
+    .vue-treeselect__input-container{
+      padding-top: 3px;
+    }
+    .vue-treeselect__limit-tip{
+      padding-top: 3px;
+    }
+  }
+}
+
+// ---------------   tree-select  end  ---------------

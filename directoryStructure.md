@@ -1,0 +1,21 @@
+- public  存放主入口文件 index.html
+- src 资源文件，这里面内容比较多
+    - api 接口文件夹
+        - ajax.js 拦截器
+        - api.js 请求地址
+        - data.js 所有数据请求的函数
+        - routers.js 路由请求函数
+        - user.js 用户登录、获取用户信息、退出登录的请求方法
+    - ssets 静态资源
+    - components iview-admin 提供的公共组件
+    - config 项目内配置文件，里面已经有的配置是cookie存储时长，是否使用国际化配置。
+    - directive 自定义指令
+    - libs
+        - api.request.js 区分开发环境和正式环境请求地址
+        - axios.js 拦截器
+        - tools.js & util.js 工具函数
+    - locale 存放国际化配置文件
+    - mock mock数据，在没有接入真实开发环境时，克隆下来的项目使用的都是mock的加数据
+    - router routers.js 路由配置文件，在这里需要注意用户的权限配置必须是一个数组。
+    - store 项目状态管理
+    - view 这里面就是我们要编写的展示页面
