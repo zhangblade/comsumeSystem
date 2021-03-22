@@ -121,7 +121,7 @@
 
     import pageList from '@/mixin/pageList'
     
-    import { recursionByFiled } from '@/libs/tools'
+    import { recursionByFiled, getDateStr } from '@/libs/tools'
 
     // import the component
     import Treeselect from '@riophae/vue-treeselect'
@@ -217,7 +217,7 @@
 			}
 		},
 		created(){
-            // this.getCommunityList()
+            
         },
         computed: {
             
@@ -225,20 +225,27 @@
 		methods: {
             beforecreatedFn(){
                 this.getDict()
+                this.initCondition()
+                let aMonthTime = 86400*1000*30
+                let today = new Date().getTime()
+                let aMonthAgo = today - aMonthTime
+                let endDate = getDateStr(today, 'year')
+                let startDate = getDateStr(aMonthAgo, 'year')
+                this.daterange = [startDate, endDate]
+                this.extParams.beginTime = startDate
+                this.extParams.endTime = endDate
             },
             createdFn(){
                 if(this.needInitData){
-                    this.fnInitPage()
-                }else{
-                    this.initCondition()
+                    this.fnSearch()
                 }
             },
             changeDateRange(val, type){
                 if(val.length && val[0]){
                     let start = new Date(val[0]).getTime()
                     let end = new Date(val[1]).getTime()
-                    let month = 86400*1000*30
-                    if(end - start > month){
+                    let aMonthTime = 86400*1000*30
+                    if(end - start > aMonthTime){
                         this.$Message.info('最多查询一个月')
                         this.daterange = ['', '']
                     }else{

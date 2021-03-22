@@ -19,8 +19,9 @@ export default {
   baseUrl: {
     // pro: '/proxy/',
     // pro: 'http://10.19.22.114:8089',
+    pro: 'http://192.168.0.11:8089',
     dev: 'http://192.168.0.11:8089',
-    pro: 'http://ft.yuexiuproperty.cn/proxy',
+    // pro: 'http://ft.yuexiuproperty.cn/proxy',
     // dev: 'http://ft.yuexiuproperty.cn/proxy',
   },
   /**

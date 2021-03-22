@@ -86,8 +86,8 @@ const getHandledValue = num => {
  * @param {Number} timeStamp 传入的时间戳
  * @param {Number} startType 要返回的时间字符串的格式类型，传入'year'则返回年开头的完整时间
  */
-const getDate = (timeStamp, startType) => {
-  const d = new Date(timeStamp * 1000)
+export const getDateStr = (timeStamp, startType) => {
+  const d = new Date(timeStamp)
   const year = d.getFullYear()
   const month = getHandledValue(d.getMonth() + 1)
   const date = getHandledValue(d.getDate())
@@ -130,8 +130,8 @@ export const getRelativeTime = timeStamp => {
   // 多于23小时59分钟59秒，少于等于29天59分钟59秒
   else if (diff > 86399 && diff <= 2623859) resStr = Math.floor(diff / 86400) + '天' + dirStr
   // 多于29天59分钟59秒，少于364天23小时59分钟59秒，且传入的时间戳早于当前
-  else if (diff > 2623859 && diff <= 31567859 && IS_EARLY) resStr = getDate(timeStamp)
-  else resStr = getDate(timeStamp, 'year')
+  else if (diff > 2623859 && diff <= 31567859 && IS_EARLY) resStr = getDateStr(timeStamp)
+  else resStr = getDateStr(timeStamp, 'year')
   return resStr
 }
 
