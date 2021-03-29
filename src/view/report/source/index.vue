@@ -271,6 +271,7 @@
                 })
             },
 			getPageListData(req){
+                console.log(JSON.stringify(req.params));
                 this.loadingTable = true
 				Interface[this.exportTypeKey].findpage(req).then(res=>{
 					if (res.status == 200) {
@@ -449,8 +450,11 @@
             daterange: {
                 handler(val){
                     if(val.length){
-                        this.extParams.beginTime = val[0].length ? val[0] + ' 00:00:00' : val[0]
-                        this.extParams.endTime = val[1].length ? val[1] + ' 23:59:59' : val[1]
+                        
+                        let start = new Date(val[0]).getTime()
+                        let end = new Date(val[1]).getTime()
+                        this.extParams.beginTime = getDateStr(start, 'year')
+                        this.extParams.endTime = getDateStr(end, 'year').split(' ')[0] + ' 23:59:59'
                     }else{
                         this.extParams.beginTime = ''
                         this.extParams.endTime = ''
