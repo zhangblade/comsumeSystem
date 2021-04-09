@@ -178,15 +178,21 @@
             setTableHeaer(val){
                 let arr1 = [
                     { title: '社区名称', key: 'bCommName', minWidth: 100 },
-                    { title: '充值金额', key: 'bMoney', minWidth: 100 },
+                    { title: '累计金额', key: 'bSumMoney', minWidth: 100 },
+                    { title: '现金账户累计金额', key: 'bSumCash', minWidth: 140 },
+                    { title: '补贴账户累计金额', key: 'bSumSubsidy', minWidth: 140 },
+                    { title: '充值笔数', key: 'bNum', minWidth: 100 },
                     { title: '充值或退款', key: 'chargeOrRefundName', minWidth: 100 },
-                    { title: '充值/退款类别', key: 'bChatypeName', minWidth: 100 },
+                    { title: '充值/退款类别', key: 'bChatypeName', minWidth: 120 },
                 ]
                 let arr2 = [
-                    { title: '充值日期', key: 'creatDateStr', minWidth: 120 },
-                    { title: '充值金额', key: 'bMoney', minWidth: 100 },
+                    { title: '充值日期', key: 'bDate', minWidth: 120 },
+                    { title: '累计金额', key: 'bSumMoney', minWidth: 100 },
+                    { title: '现金账户累计金额', key: 'bSumCash', minWidth: 140 },
+                    { title: '补贴账户累计金额', key: 'bSumSubsidy', minWidth: 140 },
+                    { title: '充值笔数', key: 'bNum', minWidth: 100 },
                     { title: '充值或退款', key: 'chargeOrRefundName', minWidth: 100 },
-                    { title: '充值/退款类别', key: 'bChatypeName', minWidth: 100 },
+                    { title: '充值/退款类别', key: 'bChatypeName', minWidth: 120 },
                 ]
                 if(val == '02'){
                     this.tableHeader = arr1

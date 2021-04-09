@@ -17,12 +17,8 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    // pro: '/proxy/',
-    // pro: 'http://10.19.22.114:8089',
-    pro: 'http://192.168.0.11:8089',
-    dev: 'http://192.168.0.11:8089',
-    // pro: 'http://ft.yuexiuproperty.cn/proxy',
-    // dev: 'http://ft.yuexiuproperty.cn/proxy',
+    pro: '/proxy/',
+    dev: 'http://192.168.0.128:8089',
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home
