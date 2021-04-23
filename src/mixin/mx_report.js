@@ -75,6 +75,9 @@ export default {
             link.click(); // 触发下载
             URL.revokeObjectURL(link.href); // 释放通过 URL.createObjectURL() 创建的 URL
         },
+        fnShowDldDrawer () {
+            this.$refs.exportList.fnShowDldDrawer()
+        },
     },
 }
   

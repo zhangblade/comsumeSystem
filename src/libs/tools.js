@@ -244,3 +244,29 @@ export const recursionByFiled = (arr, extFiled, filed)=>{
   })
   return res
 }
+
+/**
+ * @param {Number} timeStamp 传入的时间戳
+ * 返回当天0点到23.59.59.999
+ */
+export const getOneDayRange = (timeStamp) => {
+  var arr = [], temp = []
+  var curTime = timeStamp || new Date().getTime()
+  var startTime = new Date(new Date(curTime).setHours(0,0,0,0))
+  var endTime = new Date(new Date(curTime).setHours(23,59,59,999))
+  temp[0] = startTime
+  temp[1] = endTime
+  for (let index = 0; index < temp.length; index++) {
+    var d = temp[index]
+    var year = d.getFullYear()
+    var month = getHandledValue(d.getMonth() + 1)
+    var date = getHandledValue(d.getDate())
+    var hours = getHandledValue(d.getHours())
+    var minutes = getHandledValue(d.getMinutes())
+    var second = getHandledValue(d.getSeconds())
+    var resStr = ''
+    resStr = year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + second
+    arr[index] = resStr
+  }
+  return arr
+}

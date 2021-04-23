@@ -14,7 +14,7 @@
 
                     <FormItem label="昵称" prop="nickName"><Input v-model="itemData.nickName" placeholder="请输入昵称" :maxlength="50"></Input></FormItem>
                     
-                    <FormItem label="密码" prop="password"><Input type="password" v-model="itemData.password" placeholder="请输入密码" :maxlength="50" autocomplete="new-password"></Input></FormItem>
+                    <FormItem label="密码" prop="password"><Input type="password" v-model="itemData.password" placeholder="请输入密码" :maxlength="16" autocomplete="new-password"></Input></FormItem>
 
                     <FormItem label="性别" prop="sex"><RadioGroup v-model="itemData.sex"><Radio label="1">男</Radio><Radio label="0">女</Radio></RadioGroup></FormItem>
 
@@ -35,14 +35,6 @@
                             <Button :type="itemData.dataAuth == '0' ? 'primary' : 'default'" @click="changeDataAuth('0')">管理全部社区</Button>
                             <Button :type="itemData.dataAuth == '1' ? 'primary' : 'default'" @click="changeDataAuth('1')">管理选中社区</Button>
                         </ButtonGroup>
-                    </FormItem>
-
-                    <FormItem label="用户角色" prop="roleId">
-                        <div class="dib">
-                            <Select v-model="itemData.roleId" placeholder="请选择用户角色">
-                                <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                            </Select>
-                        </div>
                     </FormItem>
 
                     <FormItem label="多地登陆" prop="isAsynch">
@@ -74,9 +66,8 @@
 <script>
 
     import Interface from '@/api/data'
-    import { validCondition } from '@/components/common/util'
-    import areaList from '@/components/common/region'
     import mixin_opt from './mixin_opt'
+    import {encryptedData, publicKey} from '@/libs/util'
 
 	export default {
         name: 'add',
@@ -88,7 +79,7 @@
                     userName: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
                     realName: [{ required: true, message: '真实姓名不能为空', trigger: 'blur' }],
                     nickName: [{ required: true, message: '昵称不能为空', trigger: 'blur' }],
-                    password: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
+                    password: [{ required: true, validator: this.pwdValid, trigger: 'blur' }],
                     mobile: [{ required: true, validator: this.mobileValid, trigger: 'blur' }],
                     roleId: [{ required: true, message: '请选择用户角色', trigger: 'change' }],
                 },
@@ -106,9 +97,7 @@
                     isAsynch: 0,
                     dataAuth: '0',
                     datapriviList: [],
-                    roleId: '',
                 },
-                roleList: [],
                 drawer: {
                     show: false,
                     list: [],
@@ -118,27 +107,10 @@
 			}
         },
         created(){
-            this.getRoleSubdominant()
+            
         },
 		methods: {
-            getRoleSubdominant(){
-                Interface[this.exportTypeKey].findRoleByUser().then(res=>{
-                    if (res.status == 200) {
-                        let arr = []
-                        Object.keys(res.data).forEach(key=>{
-                            let item = {}
-                            item.value = key
-                            item.label = res.data[key]
-                            arr.push(item)
-                        })
-                        this.roleList = arr
-                    }else{
-                        this.$Message.error(res.message)
-                    }
-                }).catch(err=>{
-                    this.$Message.error(err.message)
-                })
-            },
+            
             handleSubmit(validInfo){
 
                 this.$refs[validInfo].validate((valid) => {
@@ -147,9 +119,12 @@
                             this.$Message.info('请选择数据权限')
                             return
                         }
-                        Interface[this.exportTypeKey].add(this.itemData).then(res=>{
+                        let req = JSON.parse(JSON.stringify(this.itemData))
+                        req.password = encryptedData(publicKey, req.password)
+                        
+                        Interface[this.exportTypeKey].add(req).then(res=>{
                             if (res.status == 200) {
-                                this.$Message.success('增加成功')
+                                this.$Message.success(res.message)
                                 this.backPrevPage()
                             }else{
                                 this.$Message.error(res.message)

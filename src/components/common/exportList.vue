@@ -60,13 +60,18 @@ export default {
             type: String,
             default: '',
         },
+        exportType: {
+            type: Number,
+            default: null,
+        },
     },
     created() {
         
     },
     computed: {
         baseParams () {
-            return { type: exportType[this.exportTypeKey] }
+            let type = this.exportType || exportType[this.exportTypeKey]
+            return { type: type }
         }
     },
     methods: {

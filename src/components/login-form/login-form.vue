@@ -25,6 +25,7 @@
 <script>
 import SIdentify from '../common/identify'
 import {getIdentifyCode} from '@/api/data'
+import {encryptedData, publicKey} from '@/libs/util'
 export default {
   name: 'LoginForm',
   components:{
@@ -128,9 +129,10 @@ export default {
     confrimLogin(){
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
+          let pwd = encryptedData(publicKey, this.form.password)
           this.$emit('on-success-valid', {
             userName: this.form.userName,
-            password: this.form.password,
+            password: pwd,
             identifyCode: this.form.securityCode
           })
         }else{

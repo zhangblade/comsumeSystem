@@ -56,6 +56,17 @@ export default {
 			data: req
         })
 	},
+	// 修改密码
+	resetPassword: req => {
+		return axios.request({
+		url: '/user/resetpassword',
+		method: 'post',
+		data: req,
+		headers: {
+			'Content-Type': 'application/json;charset=UTF-8'
+		},
+		})
+	},
 	// 充值明细 
 	// 充值类型 charge_type;
    	// 补助标识 charge_issue;

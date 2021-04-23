@@ -15,8 +15,10 @@
 
                     <FormItem label="昵称" prop="nickName"><Input v-model="itemData.nickName" placeholder="请输入昵称" /></FormItem>
                     
-                    <FormItem label="修改密码">
-                        <Input type="password" :disabled="!editPass" v-model="password" placeholder="请输入新密码" autocomplete="new-password"><Button slot="append" @click="openEditPassIpt()">重置密码</Button></Input>
+                    <FormItem label="修改密码" prop="password">
+                        <Input type="password" :disabled="!editPass" v-model="itemData.password" placeholder="请输入新密码" autocomplete="new-password" :maxlength="16">
+                            <Button slot="append" @click="openEditPassIpt()">{{editPassTxt}}</Button>
+                        </Input>
                     </FormItem>
 
                     <FormItem label="性别" prop="sex"><RadioGroup v-model="itemData.sex"><Radio label="1">男</Radio><Radio label="0">女</Radio></RadioGroup></FormItem>
@@ -73,9 +75,8 @@
 <script>
 
     import Interface from '@/api/data'
-    import qs from 'qs'
-    import { validCondition } from '@/components/common/util'
     import mixin_opt from './mixin_opt'
+    import {encryptedData, publicKey} from '@/libs/util'
     
 	export default {
         name: 'edit',
@@ -84,8 +85,9 @@
             
 			return {
                 editPass: false,
-                password: '123456',
+                editPassTxt: '重置密码',
                 itemData: {
+                    password: '12345678', //简易处理,单纯为了显示...
                     userName: '',
                     userId: '',
                     realName: '',
@@ -112,9 +114,13 @@
 			}
         },
 		created(){
+            this.formRules.password[0].required = this.editPass
             if(this.$route.query.userId){
                 this.getEditItemData()
             }
+        },
+        computed: {
+            
         },
 		methods: {
             getEditItemData(){
@@ -140,18 +146,17 @@
             handleSubmit (validInfo) {
                 this.$refs[validInfo].validate((valid) => {
                     if (valid) {
-                        if(this.editPass && this.password.length < 6){
-                            this.$Message.info('请输入6位及以上有效密码')
-                            return
-                        }
-                        if(this.editPass && this.password.length >= 6){
-                            this.itemData.password = this.password
-                        }
                         if(this.itemData.dataAuth == '1' && !this.itemData.datapriviList.length){
                             this.$Message.info('请选择数据权限')
                             return
                         }
-                        Interface[this.exportTypeKey].edit(JSON.stringify(this.itemData)).then(res=>{
+                        let req = JSON.parse(JSON.stringify(this.itemData))
+                        if(this.editPass){
+                            req.password = encryptedData(publicKey,  req.password)
+                        }
+                        console.log(req);
+                        return
+                        Interface[this.exportTypeKey].edit(JSON.stringify(req)).then(res=>{
                             if (res.status == 200) {
                                 this.$Message.success('保存成功!')
                                 this.backPrevPage()
@@ -165,8 +170,10 @@
                 })
             },
             openEditPassIpt() {
-                this.editPass = true
-                this.password = ''
+                this.editPass = !this.editPass
+                this.itemData.password = this.editPass ? '' : '12345678'
+                this.editPassTxt = this.editPass ? '取消重置' : '重置密码'
+                this.formRules.password[0].required = this.editPass
             },
             fnShowDrawer(){
                 if(!this.drawer.list.length) this.getCommunityList()

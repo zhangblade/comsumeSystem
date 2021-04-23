@@ -8,7 +8,7 @@
       
       <Header class="layout_header">
           <header-bar>
-              <user :message-unread-count="unreadCount" :user-avatar="userAvatar"/>
+              <user ref="userCom" class="cus_space" @fnShowDrawer="fnShowDrawer" :message-unread-count="unreadCount" :user-avatar="userAvatar"/>
               <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
           </header-bar>
       </Header>
@@ -27,6 +27,32 @@
                 
                 <ABackTop :height="100" :bottom="80" :right="50" container=".content-wrapper"></ABackTop>
               </Content>
+              <!-- 修改密码 -->
+              <Drawer :width="375" :transfer="false" :inner="true" title="修改密码" v-model="pwdDrawer.show" @on-close="closeDrawer('pwdDrawer')">
+                  <Form ref="formCustom" :model="formCustom" :label-width="95" :rules="formRules">
+                    <FormItem label="旧密码" prop="oldPwd">
+                      <Input autocomplete="new-password" :type="pwdDrawer.showOld ? 'text': 'password'" :maxlength="16" v-model="formCustom.oldPwd" placeholder="请输入旧密码">
+                        <Button :icon="pwdDrawer.showOld ? 'md-eye' : 'md-eye-off'" slot="append" @click="pwdDrawer.showOld = !pwdDrawer.showOld"></Button>
+                      </Input>
+                    </FormItem>
+                    <FormItem label="新密码" prop="newPwd">
+                      <Input autocomplete="new-password" :type="pwdDrawer.showNew ? 'text': 'password'" :maxlength="16" v-model="formCustom.newPwd" placeholder="请输入新密码">
+                        <Button :icon="pwdDrawer.showNew ? 'md-eye' : 'md-eye-off'" slot="append" @click="pwdDrawer.showNew = !pwdDrawer.showNew"></Button>
+                      </Input>
+                    </FormItem>
+                    <FormItem label="二次确认" prop="comfirmPwd">
+                      <Input autocomplete="new-password" :type="pwdDrawer.showConfirm ? 'text': 'password'" :maxlength="16" v-model="formCustom.comfirmPwd" placeholder="请确认新密码">
+                        <Button :icon="pwdDrawer.showConfirm ? 'md-eye' : 'md-eye-off'" slot="append" @click="pwdDrawer.showConfirm = !pwdDrawer.showConfirm"></Button>
+                      </Input>
+                    </FormItem>
+                    
+                    <FormItem>
+                      <Button type="primary" :loading="pwdDrawer.isSubmitting" @click="fnChangePassword('formCustom')">提交</Button>
+                      <Button type="default" style="margin-left: 20px;" @click="closeDrawer('pwdDrawer')">取消</Button>
+                    </FormItem>
+
+                  </Form>
+              </Drawer>
           </Layout>
       </div>
 
@@ -51,10 +77,15 @@ import './main.less'
 import { getMuneDate } from '@/api/data'
 import commonIcon from '../common-icon/common-icon'
 
+import Interface from '@/api/data'
+
 import Cookies from 'js-cookie'
+import { TOKEN_KEY } from '@/libs/util'
 
 import leftSubMenu from '@/components/common/leftSubMenu'
 import mixin_leftSubMenu from '@/mixin/mixin_leftSubMenu'
+
+import {encryptedData, publicKey} from '@/libs/util'
 
 export default {
   name: 'Main',
@@ -77,6 +108,31 @@ export default {
       defaultLogo,
       isFullscreen: false,
       homeMunueList:[],
+      
+			formRules: {
+				oldPwd: [
+					{ required: true, message: '请输入旧密码', trigger: 'blur' },
+					{ type: 'string', min: 6, message: '密码至少为6位', trigger: 'blur' }
+				],
+				newPwd: [
+					{ required: true, validator: this.validatePass, trigger: 'blur' },
+				],
+				comfirmPwd: [
+					{ required: true, validator: this.validatePassCheck, trigger: 'blur' }
+				],
+			},
+			formCustom: {
+				oldPwd: '111111',
+				newPwd: '123456',
+				comfirmPwd: '123456',
+			},
+			pwdDrawer: {
+				show: false,
+				showOld: false,
+				showNew: false,
+				showConfirm: false,
+				isSubmitting: false,
+			},
     }
   },
   computed: {
@@ -178,7 +234,65 @@ export default {
             this.$refs.leftSubMenu.$refs.side_menu.updateOpenName(name)
           }
         })
-    }
+    },
+		validatePass(rule, value, callback){
+			if (value === '') {
+				callback(new Error('请输入密码'));
+			} else if (value.length < 6 || value.length > 16) {
+				callback(new Error('请输入6-16位密码'))
+			} else {
+				if (this.formCustom.comfirmPwd !== '') {
+					this.$refs.formCustom.validateField('comfirmPwd');
+				}
+				callback();
+			}
+		},
+		validatePassCheck(rule, value, callback){
+			if (value === '') {
+				callback(new Error('请输入密码'));
+			} else if (value !== this.formCustom.newPwd) {
+				callback(new Error('两次输入的密码不匹配!'));
+			} else {
+				callback();
+			}
+		},
+		fnShowDrawer(drawerName){
+			this[drawerName].show = true
+		},
+		closeDrawer(drawerName){
+			this.pwdDrawer.show = false
+			if(drawerName == 'pwdDrawer'){
+				this.formCustom = {
+					oldPwd: '',
+					newPwd: '',
+					comfirmPwd: '',
+				}
+				this.$refs.formCustom.resetFields()
+			}
+		},
+		fnChangePassword(name){
+			this.$refs[name].validate((valid) => {
+				if (valid) {
+					let req = {
+						oldPwd: encryptedData(publicKey, this.formCustom.oldPwd),
+						newPwd: encryptedData(publicKey, this.formCustom.newPwd),
+					}
+					this.pwdDrawer.isSubmitting = true
+					Interface.common.resetPassword(req).then(res=>{
+						this.closeDrawer('pwdDrawer')
+						if (res.status == 200) {
+							this.$Message.success('修改成功,请重新登录!')
+							Cookies.remove(TOKEN_KEY)
+							sessionStorage.clear()
+							this.$router.push({name: 'login', query: { account: this.$store.state.user.userName }})
+						}
+						this.pwdDrawer.isSubmitting = false
+					}).catch(err=>{
+						this.pwdDrawer.isSubmitting = false
+					})
+				}
+			})
+		},
   },
   watch: {
     $route: {

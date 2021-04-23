@@ -3,7 +3,7 @@
     <div class="search_box">
         <slot name="mutil_before"></slot>
         <Select v-show="condition.list.length>1" class="condition_pre" v-model="current.key">
-            <Option v-for="(option, index) in condition.list" :value="option.value" :key="option.value" @click.native="changeQueryKey(option, index)">{{ option.label }}</Option>
+            <Option v-for="(option, index) in condition.list" :value="option.value" :key="option.value" @click.native="changeQueryKey(option, index)">{{ option.formatLabel || option.label }}</Option>
         </Select>
         <Input :style="customWidth" class="condition_comm" v-if="current.type == 'input'" v-model="current.val" :placeholder="'请输入'+ current.label"  @keyup.enter.native="fnSearch"/>
         <Select :style="customWidth" class="condition_comm" v-if="current.type == 'select'" v-model="current.val">
@@ -67,9 +67,8 @@ export default {
 <style lang="less" scoped>
     .condition_pre{
         width: 100px;
-        margin-right: 5px;
     }
-    .condition_comm{
+    .condition_comm, .condition_btn_submit, .condition_pre{
         margin-right: 5px;
     }
 </style>

@@ -8,7 +8,16 @@ const desc = () => import('@/view/comm/desc/index')
 const operator = () => import('@/view/system/operator/index')
 const addoperator = () => import('@/view/system/operator/children/add')
 const editoperator = () => import('@/view/system/operator/children/edit')
-const assignRolesoperator = () => import('@/view/system/operator/children/assignRoles')
+// 角色管理
+const role = () => import('@/view/system/role/index')
+const addrole = () => import('@/view/system/role/children/add')
+const editrole = () => import('@/view/system/role/children/edit')
+const permissionrole = () => import('@/view/system/role/children/permission')
+// 操作员角色分配
+const userrole = () => import('@/view/system/userrole/index')
+const assignrolesuserrole = () => import('@/view/system/userrole/children/assignroles')
+// 操作日志
+const opperlog = () => import('@/view/system/opperlog/index')
 
 // 报表
 // 充值明细
@@ -143,15 +152,77 @@ export default [
         },
         component: editoperator
       },
+
       {
-        path: 'operator/assignRoles',
+        path: 'role',
         icon: "fa fa-flag",
-        name: "system_operator_assignRoles",
+        name: "system_role",
         meta: {
             "icon": "fa fa-flag",
-            "title": "操作员管理-分配角色"
+            "title": "角色管理"
         },
-        component: assignRolesoperator
+        component: role
+      },
+      {
+        path: 'role/add',
+        icon: "fa fa-flag",
+        name: "system_role_add",
+        meta: {
+            "icon": "fa fa-flag",
+            "title": "角色管理-新增"
+        },
+        component: addrole
+      },
+      {
+        path: 'role/edit',
+        icon: "fa fa-flag",
+        name: "system_role_edit",
+        meta: {
+            "icon": "fa fa-flag",
+            "title": "角色管理-编辑"
+        },
+        component: editrole
+      },
+      {
+        path: 'role/permission',
+        icon: "fa fa-flag",
+        name: "system_role_permission",
+        meta: {
+            "icon": "fa fa-flag",
+            "title": "角色管理-权限"
+        },
+        component: permissionrole
+      },
+      
+      {
+        path: 'userrole',
+        icon: "fa fa-flag",
+        name: "system_userrole",
+        meta: {
+            "icon": "fa fa-flag",
+            "title": "操作员管理"
+        },
+        component: userrole
+      },
+      {
+        path: 'userrole/assignroles',
+        icon: "fa fa-flag",
+        name: "system_userrole_assignroles",
+        meta: {
+            "icon": "fa fa-flag",
+            "title": "操作员管理-角色分配"
+        },
+        component: assignrolesuserrole
+      },
+      {
+        path: 'opperlog',
+        icon: "fa fa-flag",
+        name: "system_opperlog",
+        meta: {
+            "icon": "fa fa-flag",
+            "title": "操作日志"
+        },
+        component: opperlog
       },
       
     ]

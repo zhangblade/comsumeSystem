@@ -18,6 +18,9 @@ import pvcgroup from "./interface/comm/pvcgroup" // 设备组
 import pvcdevice from "./interface/comm/pvcdevice" // 设备
 // 系统管理
 import operator from "./interface/system/operator" // 操作员管理
+import role from "./interface/system/role" // 操作员管理
+import userrole from "./interface/system/userrole" // 操作员角色分配
+import opperlog from "./interface/system/opperlog" // 操作日志
 
 const Interface = {
   common,
@@ -38,6 +41,9 @@ const Interface = {
   pvcdevice,
 
   operator,
+  role,
+  userrole,
+  opperlog,
   
 }
 

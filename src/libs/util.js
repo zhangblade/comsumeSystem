@@ -466,3 +466,15 @@ export const downLoadFileByLink = (url, token)=> {
   link.click(); // 触发下载
   URL.revokeObjectURL(link.href); // 释放通过 URL.createObjectURL() 创建的 URL
 }
+
+
+import { JSEncrypt } from 'jsencrypt'
+export const publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ=='
+export const encryptedData = (publicKey, data)=> {
+  // 新建JSEncrypt对象
+  let encryptor = new JSEncrypt();
+  // 设置公钥
+  encryptor.setPublicKey(publicKey);
+  // 加密数据
+  return encryptor.encrypt(data);
+}
