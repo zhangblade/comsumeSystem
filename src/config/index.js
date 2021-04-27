@@ -17,8 +17,8 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    // pro: '/proxy/',
-    pro: 'http://192.168.0.128:8089',
+    pro: '/proxy/',
+    // pro: 'http://192.168.0.128:8089',
     dev: 'http://192.168.0.128:8089',
   },
   /**
