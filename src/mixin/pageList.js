@@ -98,7 +98,11 @@ export default {
          */
         fnSearch(){
             this.setSearchParams() //设置搜索字段和值
-            this.mergeParams() // 合并参数
+            if(this.needPager){
+                this.changePage(1)
+            }else{
+                this.setNoPagerRequestParams()
+            }
         },
         mergeParams(){
             if(this.needPager){
@@ -108,7 +112,6 @@ export default {
             }
         },
         setRequestParams(pageNum, pageSize){
-
             var req = {
                 pageNum: pageNum || this.pager.pageNum,
                 pageSize: pageSize || this.pager.pageSize,
@@ -200,6 +203,10 @@ export default {
                     this.pager.pageNum = res.data.pageNum
                 }else{
                     this.pageListData = []
+                    this.pager.totalSize = res.data.totalSize || 0
+                    this.pager.pageSize = res.data.pageSize || 10
+                    this.pager.totalPages = res.data.totalPages || 1
+                    this.pager.pageNum = res.data.pageNum || 1
                     this.$Message.info('暂无数据')
                 }
             }else{

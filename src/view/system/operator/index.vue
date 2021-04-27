@@ -101,12 +101,12 @@
         },
 		methods: {
             showAddModule(){
-                this.$router.push({ name: this.$route.name+'_add', query: { deptId: this.extParams.deptId, tni: this.tni, nps: this.nps } })
+                this.$router.push({ name: this.$route.name+'_add', query: { deptId: this.extParams.deptId, nps: this.nps } })
             },
             showEditModule(row){
                 this.$router.push({
                     name: this.$route.name+'_edit',
-                    query: { userId: row.userId, deptId: this.extParams.deptId, tni: this.tni, nps: this.nps }
+                    query: { userId: row.userId, deptId: this.extParams.deptId, nps: this.nps }
                 })
             },
             fnRemove(row){

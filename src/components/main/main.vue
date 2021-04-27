@@ -30,17 +30,17 @@
               <!-- 修改密码 -->
               <Drawer :width="375" :transfer="false" :inner="true" title="修改密码" v-model="pwdDrawer.show" @on-close="closeDrawer('pwdDrawer')">
                   <Form ref="formCustom" :model="formCustom" :label-width="95" :rules="formRules">
-                    <FormItem label="旧密码" prop="oldPwd">
+                    <FormItem label="旧密码" prop="oldPwd" style="margin-bottom: 30px;">
                       <Input autocomplete="new-password" :type="pwdDrawer.showOld ? 'text': 'password'" :maxlength="16" v-model="formCustom.oldPwd" placeholder="请输入旧密码">
                         <Button :icon="pwdDrawer.showOld ? 'md-eye' : 'md-eye-off'" slot="append" @click="pwdDrawer.showOld = !pwdDrawer.showOld"></Button>
                       </Input>
                     </FormItem>
-                    <FormItem label="新密码" prop="newPwd">
+                    <FormItem label="新密码" prop="newPwd" style="margin-bottom: 30px;">
                       <Input autocomplete="new-password" :type="pwdDrawer.showNew ? 'text': 'password'" :maxlength="16" v-model="formCustom.newPwd" placeholder="请输入新密码">
                         <Button :icon="pwdDrawer.showNew ? 'md-eye' : 'md-eye-off'" slot="append" @click="pwdDrawer.showNew = !pwdDrawer.showNew"></Button>
                       </Input>
                     </FormItem>
-                    <FormItem label="二次确认" prop="comfirmPwd">
+                    <FormItem label="二次确认" prop="comfirmPwd" style="margin-bottom: 30px;">
                       <Input autocomplete="new-password" :type="pwdDrawer.showConfirm ? 'text': 'password'" :maxlength="16" v-model="formCustom.comfirmPwd" placeholder="请确认新密码">
                         <Button :icon="pwdDrawer.showConfirm ? 'md-eye' : 'md-eye-off'" slot="append" @click="pwdDrawer.showConfirm = !pwdDrawer.showConfirm"></Button>
                       </Input>
@@ -122,9 +122,9 @@ export default {
 				],
 			},
 			formCustom: {
-				oldPwd: '111111',
-				newPwd: '123456',
-				comfirmPwd: '123456',
+				oldPwd: '',
+				newPwd: '',
+				comfirmPwd: '',
 			},
 			pwdDrawer: {
 				show: false,
@@ -236,16 +236,15 @@ export default {
         })
     },
 		validatePass(rule, value, callback){
-			if (value === '') {
-				callback(new Error('请输入密码'));
-			} else if (value.length < 6 || value.length > 16) {
-				callback(new Error('请输入6-16位密码'))
-			} else {
-				if (this.formCustom.comfirmPwd !== '') {
-					this.$refs.formCustom.validateField('comfirmPwd');
-				}
-				callback();
-			}
+        let reg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!@#$^&*])[A-Za-z0-9._~!@#$^&*]{8,20}$/
+        if(!value || !reg.test(value)){
+          callback(new Error('请输入8位以上,16位以下的数字+字母+特殊符号(!@#$%^&*_+)3种以上组成的密码'))
+        } else {
+          if (this.formCustom.comfirmPwd !== '') {
+            this.$refs.formCustom.validateField('comfirmPwd');
+          }
+          callback();
+        }
 		},
 		validatePassCheck(rule, value, callback){
 			if (value === '') {
