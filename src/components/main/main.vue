@@ -285,7 +285,9 @@ export default {
 							Cookies.remove(TOKEN_KEY)
 							sessionStorage.clear()
 							this.$router.push({name: 'login', query: { account: this.$store.state.user.userName }})
-						}
+						}else{
+              this.$Message.error(res.message)
+            }
 						this.pwdDrawer.isSubmitting = false
 					}).catch(err=>{
 						this.pwdDrawer.isSubmitting = false

@@ -89,18 +89,15 @@
             // 设置搜索参数
             setSearchParams(){
                 var params = {}
-                const type = this.current.type,
-                    val = this.current.val
                 
-                if( val !== '' || (type == 'select' && val !== 'all') ){
-                    params.searchKey = this.current.key == 'all' ? '' : this.current.key
-                    params.searchVal = this.current.val
-                }
+                params.searchKey = this.current.key == 'all' ? '' : this.current.key
+                params.searchVal = this.current.val
+                
                 this.searchParams = params
             },
             beforecreatedFn(){
-                this.daterange = this.defaultDate
                 this.getSearchCondition()
+                this.changeDate(this.defaultDate)
             },
             createdfn(){
                 if(this.needInitData){
@@ -111,12 +108,12 @@
                 Interface[this.exportTypeKey].getSearchCondition().then(res=>{
                     if (res.status == 200 && res.data && res.data.opperlogTypeList.length > 0) {
                         let temp = res.data.opperlogTypeList.map(i=>{
-                            return { value: i.value, label: i.description + '类型操作员', formatLabel: i.description, type: 'input' }
+                            return { value: i.value, label: '操作员', formatLabel: i.description, type: 'input' }
                         })
-                        let item = { value: 'all', label: '操作员', type: 'input' }
+                        let item = { value: 'all', label: '操作员', formatLabel: '操作类型', type: 'input' }
                         temp.unshift(item)
                         this.condition.list = temp
-                        this.fnInitPage()
+                        this.initCondition()
                     }
                 })
             },
