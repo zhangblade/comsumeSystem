@@ -106,6 +106,8 @@
                 Interface[this.exportTypeKey].delete(deleteItem).then(res=>{
                     if (res.status == 200) {
                         this.removeSuccessCallback(res)
+                    }else{
+                        this.$Message.error(res.message)
                     }
                 })
             },

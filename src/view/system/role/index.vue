@@ -104,6 +104,8 @@
                 Interface[this.exportTypeKey].delete(req).then(res=>{
                     if (res.status == 200) {
                         this.removeSuccessCallback(res)
+                    }else{
+                        this.$Message.error(res.message)
                     }
                 })
             },

@@ -59,12 +59,23 @@ export default {
 	// 修改密码
 	resetPassword: req => {
 		return axios.request({
-		url: '/user/resetpassword',
-		method: 'post',
-		data: req,
-		headers: {
-			'Content-Type': 'application/json;charset=UTF-8'
-		},
+			url: '/user/resetpassword',
+			method: 'post',
+			data: req,
+			headers: {
+				'Content-Type': 'application/json;charset=UTF-8'
+			},
+		})
+	},
+	// 密码国企强制修改密码
+	forceresetpwd: req => {
+		return axios.request({
+			url: 'forceresetpwd',
+			method: 'post',
+			data: req,
+			headers: {
+				'Content-Type': 'application/json;charset=UTF-8'
+			},
 		})
 	},
 	// 充值明细 

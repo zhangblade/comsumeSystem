@@ -1,10 +1,12 @@
 import axios from 'axios'
 import store from '@/store'
-import { getToken} from '@/libs/util'
+import { getToken } from '@/libs/util'
 import router from '@/router'
 import Cookies from 'js-cookie'
 
 const noErrTips = ['notice/imgdelete']
+const LOGIN_PAGE_NAME = 'login'
+const RESET_PASSWORD_NAME = 'resetpassword'
 // import { Spin } from 'iview'
 // const addErrorLog = errorInfo => {
 //   const { statusText, status, request: { responseURL } } = errorInfo
@@ -43,7 +45,12 @@ class HttpRequest {
         if(res.data.status == "401"){// token失效
           Cookies.remove('token')
           router.replace({
-            name: 'login' // 到登录页重新获取token
+            name: LOGIN_PAGE_NAME // 到登录页重新获取token
+          })
+        }else if(res.data.status == '904'){ //密码过期
+          Cookies.remove('token')
+          router.replace({
+            name: RESET_PASSWORD_NAME // 到修改密码页面修改密码
           })
         }
         return res.data

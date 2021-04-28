@@ -102,6 +102,11 @@ export default {
     //   return this.propCode;
     // }
   },
+  created(){
+    if(this.$route.query.userName){
+      this.form.userName = this.$route.query.userName
+    }
+  },
   methods: {
     handleSubmit () {
       if(this.isLogin) return

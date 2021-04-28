@@ -112,7 +112,7 @@ export default {
 			formRules: {
 				oldPwd: [
 					{ required: true, message: '请输入旧密码', trigger: 'blur' },
-					{ type: 'string', min: 6, message: '密码至少为6位', trigger: 'blur' }
+					{ type: 'string', min: 8, message: '密码至少为8位', trigger: 'blur' }
 				],
 				newPwd: [
 					{ required: true, validator: this.validatePass, trigger: 'blur' },

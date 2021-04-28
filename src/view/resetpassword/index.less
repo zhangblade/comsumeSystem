@@ -1,0 +1,108 @@
+
+.password{
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/images/bg_resetpassword.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    max-width: 1920px;
+    min-width: 1200px;
+    .password_wrap{
+        position: relative;
+        width: 1200px;
+        height: 100%;
+        margin: 0 auto;
+    }
+    &-con{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(20px, -50%);
+        border-radius: 30px;
+        background-color: #fff;
+        padding: 50px 40px;
+        &-header{
+            font-size: 16px;
+            font-weight: 300;
+            text-align: center;
+            padding: 30px 0;
+        }
+        .password-tip{
+            font-size: 10px;
+            text-align: center;
+            color: #c3c3c3;
+        }
+    }
+}
+
+
+.password_title{
+    font-family: PingFang-SC-Regular;
+    font-size: 27px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 1px;
+    color: #040404;
+    margin-bottom: 20px;
+}
+.form-con{
+    width: 480px;
+}
+
+.cus_ipt_size{
+  .ivu-input-prefix{
+    width: 46px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .cus_icon{
+      width: 100%;
+      height: 22px;
+      background-size: auto 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      &_user{
+        background-image: url("../../assets/images/login/user.png");
+      }
+      &_pass{
+        background-image: url("../../assets/images/login/authcode.png");
+      }
+    }
+  }
+  .ivu-input-inner-container{
+    .ivu-input{
+      height: 50px;
+      font-size: 12px;
+      color: #999999;
+      font-family: 'PingFang-SC-Regular';
+      padding: 4px 10px 4px 46px;
+    }
+  }
+}
+.cus_btn_submit{
+	width: 480px;
+	height: 64px;
+	background-image: linear-gradient(90deg, #f88b45 0%, #ff7d29 58%, #e77023 100%), linear-gradient(#3381ff, #3381ff);
+  background-size: 200%;
+	background-blend-mode: normal, normal;
+  border-radius: 2px;
+  border: none;
+  transition: all 2s;
+  transition: background-position .5s;
+  outline: none;
+  box-sizing: border-box;
+  &:hover {
+    background-position: 100% 0;
+    border: none;
+    outline: none;
+  }
+  span{
+    font-family: 'PingFang-SC-Regular';
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 2px;
+    color: #ffffff;
+  }
+}

@@ -1,5 +1,9 @@
 import Main from '@/components/main'
 
+// 登录
+const login = () => import('@/view/login/login.vue')
+// 修改密码
+const resetpassword = () => import('@/view/resetpassword/index')
 // 概述
 const desc = () => import('@/view/comm/desc/index')
 
@@ -86,7 +90,16 @@ export default [
       title: 'Login - 登录',
       hideInMenu: true
     },
-    component: () => import('@/view/login/login.vue')
+    component: login
+  },
+  {
+    path: '/resetpassword',
+    name: 'resetpassword',
+    meta: {
+      title: '修改密码',
+      hideInMenu: true
+    },
+    component: resetpassword
   },
   {
     path: '/',
