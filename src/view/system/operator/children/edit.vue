@@ -123,6 +123,18 @@
             
         },
 		methods: {
+            pwdValid(rule, value, callback){
+                if(this.editPass){
+                    let reg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!@#$^&*])[A-Za-z0-9._~!@#$^&*]{8,20}$/
+                    if(!value || !reg.test(value)){
+                    callback(new Error('请输入8位以上,16位以下的数字+字母+特殊符号(!@#$%^&*_+)3种以上组成的密码'))
+                    } else {
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            },
             getEditItemData(){
                 var req = {userId: this.$route.query.userId}
 				Interface[this.exportTypeKey].findById(req).then(res=>{
@@ -153,9 +165,10 @@
                         let req = JSON.parse(JSON.stringify(this.itemData))
                         if(this.editPass){
                             req.password = encryptedData(publicKey,  req.password)
+                        }else{
+                            delete req.password
                         }
-                        console.log(req);
-                        return
+                        
                         Interface[this.exportTypeKey].edit(JSON.stringify(req)).then(res=>{
                             if (res.status == 200) {
                                 this.$Message.success('保存成功!')
